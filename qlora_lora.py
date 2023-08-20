@@ -332,7 +332,7 @@ def get_accelerate_model(args, checkpoint_dir):
         trust_remote_code=args.trust_remote_code,
         # torch_dtype = torch.bfloat16
     )
-    
+
     if compute_dtype == torch.float16 and args.bits == 4:
         if torch.cuda.is_bf16_supported():
             print('=' * 80)
