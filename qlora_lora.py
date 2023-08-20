@@ -397,7 +397,10 @@ def get_accelerate_model(args, checkpoint_dir):
                 bias="none",
                 task_type="CAUSAL_LM",
             )
+            model.enable_input_require_grads()
             model = get_peft_model(model, config)
+            for n, p in model.named_parameters():
+                print(n, p.size(), p.device, p.requires_grad)
 
     for name, module in model.named_modules():
         if isinstance(module, LoraLayer):
