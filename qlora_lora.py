@@ -330,6 +330,7 @@ def get_accelerate_model(args, checkpoint_dir):
         device_map=device_map,
         torch_dtype=(torch.float32 if args.fp16 else (torch.bfloat16 if args.bf16 else torch.float32)),
         trust_remote_code=args.trust_remote_code,
+        use_auth_token=HF_TOKEN
         # torch_dtype = torch.bfloat16
     )
 
