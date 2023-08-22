@@ -504,9 +504,9 @@ def extract_unnatural_instructions_data(examples, extract_reformulations=False):
         'output': [],
     }
     for example_instances in examples['instances']:
-        for instance in example_instances:
-            out['input'].append(instance['instruction_with_input'])
-            out['output'].append(instance['output'])
+        # for instance in example_instances:
+        out['input'].append(example_instances['instruction_with_input'])
+        out['output'].append(example_instances['output'])
     if extract_reformulations:
         for example_reformulations in examples['reformulations']:
             if example_reformulations is not None:
