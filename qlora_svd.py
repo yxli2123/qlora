@@ -673,9 +673,9 @@ def extract_unnatural_instructions_data(examples, extract_reformulations=False):
         'output': [],
     }
     for example_instances in examples['instances']:
-        for instance in example_instances:
-            out['input'].append(instance['instruction_with_input'])
-            out['output'].append(instance['output'])
+        # for instance in example_instances:
+        out['input'].append(example_instances['instruction_with_input'])
+        out['output'].append(example_instances['output'])
     if extract_reformulations:
         for example_reformulations in examples['reformulations']:
             if example_reformulations is not None:
@@ -761,6 +761,8 @@ def make_data_module(tokenizer: transformers.PreTrainedTokenizer, args) -> Dict:
             return load_dataset("akoksal/LongForm")
         elif dataset_name == 'oasst1':
             return load_dataset("timdettmers/openassistant-guanaco")
+        elif dataset_name == 'unnatural_instruct':
+            return load_dataset("mrm8488/unnatural-instructions-full")
         elif dataset_name == 'vicuna':
             raise NotImplementedError("Vicuna data was not released.")
         else:
@@ -798,6 +800,8 @@ def make_data_module(tokenizer: transformers.PreTrainedTokenizer, args) -> Dict:
                 'input': '',
                 'output': x['text'],
             })
+        elif args.dataset == 'unnatural_instruct':
+            dataset = dataset.map(extract_unnatural_instructions_data)
         elif dataset_format == 'input-output':
             # leave as is
             pass
