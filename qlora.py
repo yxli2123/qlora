@@ -587,6 +587,8 @@ def make_data_module(tokenizer: transformers.PreTrainedTokenizer, args) -> Dict:
             return load_dataset("akoksal/LongForm")
         elif dataset_name == 'oasst1':
             return load_dataset("timdettmers/openassistant-guanaco")
+        elif dataset_name == 'unnatural_instruct':
+            return load_dataset("mrm8488/unnatural-instructions-full")
         elif dataset_name == 'vicuna':
             raise NotImplementedError("Vicuna data was not released.")
         else:
@@ -624,6 +626,8 @@ def make_data_module(tokenizer: transformers.PreTrainedTokenizer, args) -> Dict:
                 'input': '',
                 'output': x['text'],
             })
+        elif args.dataset == 'unnatural_instruct':
+            dataset = dataset.map(extract_unnatural_instructions_data)
         elif dataset_format == 'input-output':
             # leave as is
             pass
