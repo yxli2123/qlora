@@ -167,3 +167,6 @@ data/training/*
 
 # VSCode Debug
 .vscode
+
+qlora_replicate_oasst1
+llama_cache
