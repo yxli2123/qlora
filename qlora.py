@@ -577,6 +577,8 @@ def make_data_module(tokenizer: transformers.PreTrainedTokenizer, args) -> Dict:
             return load_dataset("tatsu-lab/alpaca")
         elif dataset_name == 'alpaca-clean':
             return load_dataset("yahma/alpaca-cleaned")
+        elif dataset_name == 'alpagasus':
+            return load_dataset("mlabonne/alpagasus")
         elif dataset_name == 'chip2':
             return load_dataset("laion/OIG", data_files='unified_chip2.jsonl')
         elif dataset_name == 'self-instruct':
@@ -605,7 +607,7 @@ def make_data_module(tokenizer: transformers.PreTrainedTokenizer, args) -> Dict:
     def format_dataset(dataset, dataset_format):
         if (
             dataset_format == 'alpaca' or dataset_format == 'alpaca-clean' or
-            (dataset_format is None and args.dataset in ['alpaca', 'alpaca-clean'])
+            (dataset_format is None and args.dataset in ['alpaca', 'alpaca-clean','alpagasus'])
         ):
             dataset = dataset.map(extract_alpaca_dataset, remove_columns=['instruction'])
         elif dataset_format == 'chip2' or (dataset_format is None and args.dataset == 'chip2'):
