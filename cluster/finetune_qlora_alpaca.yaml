@@ -13,7 +13,7 @@ target:
 
 
 environment:
-  image: pytorch/pytorch:2.0.1-cuda11.7-cudnn8-runtime
+  image: pytorch/pytorch:2.0.1-cuda11.7-cudnn8-devel
   image_setup:
     - apt-get -y update
     - apt-get -y install wget
