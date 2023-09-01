@@ -767,6 +767,8 @@ def make_data_module(tokenizer: transformers.PreTrainedTokenizer, args) -> Dict:
             return load_dataset("mrm8488/unnatural-instructions-full")
         elif dataset_name == 'vicuna':
             raise NotImplementedError("Vicuna data was not released.")
+        elif dataset_name == 'flan_v2':
+            return load_dataset("SirNeural/flan_v2")
         else:
             if os.path.exists(dataset_name):
                 try:
@@ -807,6 +809,10 @@ def make_data_module(tokenizer: transformers.PreTrainedTokenizer, args) -> Dict:
         elif dataset_format == 'input-output':
             # leave as is
             pass
+        elif args.dataset == 'flan_v2':
+            dataset = dataset.map(lambda x: {
+                'output' : x['targets']
+            } ).shuffle(seed=42)
         # Remove unused columns.
         dataset = dataset.remove_columns(
             [col for col in dataset.column_names['train'] if col not in ['input', 'output']]
